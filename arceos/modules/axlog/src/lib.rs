@@ -224,6 +224,26 @@ impl Log for Logger {
     fn flush(&self) {}
 }
 
+trait ChangeColor {
+    fn change_color(&self, color: ColorCode) -> ColorCode;
+}
+
+impl<'a> fmt::Arguments<'a> {
+    fn get_spec(&self) -> &'a str {
+        self.pieces
+    }
+}
+
+impl<'a> ChangeColor for fmt::Arguments<'a>
+{
+    fn change_color(&self, color: ColorCode) -> ColorCode {
+        let spec = self.get_spec();
+        let white_prefix = format_args!("\u{1B}[{}m", ColorCode::White as u8);
+        assert!(spec.find(white_prefix).is_some());
+        ColorCode::White
+    }
+}
+
 /// Prints the formatted string to the console.
 pub fn print_fmt(args: fmt::Arguments) -> fmt::Result {
     use kspin::SpinNoIrq; // TODO: more efficient
@@ -234,7 +254,14 @@ pub fn print_fmt(args: fmt::Arguments) -> fmt::Result {
 }
 
 #[doc(hidden)]
+#[cfg(not(feature = "colorful"))]
 pub fn __print_impl(args: fmt::Arguments) {
+    print_fmt(args).unwrap();
+}
+
+#[cfg(feature = "colorful")]
+pub fn __print_impl(args: fmt::Arguments) {
+    args.change_color(ColorCode::Red);
     print_fmt(args).unwrap();
 }
 

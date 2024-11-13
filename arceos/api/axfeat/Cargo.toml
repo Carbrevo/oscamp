@@ -10,7 +10,8 @@ repository = "https://github.com/arceos-org/arceos/tree/main/api/axfeat"
 documentation = "https://arceos-org.github.io/arceos/axfeat/index.html"
 
 [features]
-default = []
+colorful = [ "axlog/colorful" ]
+default = [ "colorful"]
 
 # Multicore
 smp = ["axhal/smp", "axruntime/smp", "kspin/smp"]

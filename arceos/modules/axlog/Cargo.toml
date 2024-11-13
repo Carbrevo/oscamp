@@ -11,6 +11,7 @@ documentation = "https://arceos-org.github.io/arceos/axlog/index.html"
 
 [features]
 std = ["dep:chrono"]
+colorful = []
 log-level-off = ["log/max_level_off"]
 log-level-error = ["log/max_level_error"]
 log-level-warn = ["log/max_level_warn"]
