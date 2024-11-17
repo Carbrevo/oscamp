@@ -14,7 +14,7 @@ default = []
 
 irq = ["axfeat/irq"]
 alloc = ["dep:axalloc", "axfeat/alloc"]
-alt_alloc = ["dep:alt_axalloc", "axfeat/alt_alloc"]
+alt_alloc = ["alt_axalloc", "axfeat/alt_alloc"]
 paging = ["dep:axmm", "axfeat/paging"]
 dma = ["dep:axdma", "axfeat/dma"]
 multitask = ["axtask/multitask", "axsync/multitask", "axfeat/multitask"]
